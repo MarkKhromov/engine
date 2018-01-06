@@ -4,12 +4,12 @@ using System.Windows.Forms;
 namespace Engine {
     public class Player {
         public Player(Game game) {
-            this.game = game;
+            keyboardManager = game.KeyboardManager;
             Size = new SizeF(32.0f, 32.0f);
             Speed = 5.0f;
         }
 
-        readonly Game game;
+        readonly KeyboardManager keyboardManager;
 
         public SizeF Size { get; set; }
         public PointF Coords { get; set; }
@@ -20,16 +20,16 @@ namespace Engine {
         }
 
         public void Tick() {
-            if(game.KeyboardManager.IsPressed(Keys.Up)) {
+            if(keyboardManager.IsPressed(Keys.Up)) {
                 Coords = new PointF(Coords.X, Coords.Y - Speed);
             }
-            if(game.KeyboardManager.IsPressed(Keys.Right)) {
+            if(keyboardManager.IsPressed(Keys.Right)) {
                 Coords = new PointF(Coords.X + Speed, Coords.Y);
             }
-            if(game.KeyboardManager.IsPressed(Keys.Down)) {
+            if(keyboardManager.IsPressed(Keys.Down)) {
                 Coords = new PointF(Coords.X, Coords.Y + Speed);
             }
-            if(game.KeyboardManager.IsPressed(Keys.Left)) {
+            if(keyboardManager.IsPressed(Keys.Left)) {
                 Coords = new PointF(Coords.X - Speed, Coords.Y);
             }
         }
