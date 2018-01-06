@@ -47,6 +47,7 @@ namespace Engine {
         void Render(Graphics graphics) {
             graphics.Clear(Color.Black);
             Player.Render(graphics);
+            DebugHelper.RenderCoords(graphics, Player);
         }
 
         void PrepareForm() {
