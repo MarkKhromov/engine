@@ -6,8 +6,10 @@ namespace Engine {
     public class Game {
         public Game(Form form) {
             this.form = form;
-            PrepareForm();
+            IsRunning = false;
+            Player = new Player(this);
             thread = new Thread(new ThreadStart(() => {
+                PrepareForm();
                 IsRunning = true;
                 var logicalTimer = new LogicalTimer(60, () => {
                     // Render
@@ -18,13 +20,13 @@ namespace Engine {
                     logicalTimer.Tick();
                 }
             }));
-            IsRunning = false;
         }
 
         readonly Form form;
         readonly Thread thread;
 
         public bool IsRunning { get; private set; }
+        public Player Player { get; }
 
         public void Start() {
             thread.Start();
@@ -37,7 +39,10 @@ namespace Engine {
 
         void Tick() { }
 
-        void Render(Graphics graphics) { }
+        void Render(Graphics graphics) {
+            graphics.Clear(Color.Black);
+            Player.Render(graphics);
+        }
 
         void PrepareForm() {
             FormClosingEventHandler closingHandler = null;
