@@ -7,6 +7,7 @@ namespace Engine {
         public Game(Form form) {
             this.form = form;
             IsRunning = false;
+            KeyboardManager = new KeyboardManager(form);
             Player = new Player(this);
             thread = new Thread(new ThreadStart(() => {
                 PrepareForm();
@@ -25,6 +26,8 @@ namespace Engine {
         readonly Form form;
         readonly Thread thread;
 
+        public KeyboardManager KeyboardManager { get; }
+
         public bool IsRunning { get; private set; }
         public Player Player { get; }
 
@@ -37,7 +40,9 @@ namespace Engine {
             thread.Join();
         }
 
-        void Tick() { }
+        void Tick() {
+            Player.Tick();
+        }
 
         void Render(Graphics graphics) {
             graphics.Clear(Color.Black);
