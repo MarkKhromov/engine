@@ -9,6 +9,7 @@ namespace Engine {
             IsRunning = false;
             KeyboardManager = new KeyboardManager(form);
             Player = new Player(this);
+            Grid = new Grid(this);
             thread = new Thread(new ThreadStart(() => {
                 PrepareForm();
                 IsRunning = true;
@@ -30,6 +31,8 @@ namespace Engine {
 
         public bool IsRunning { get; private set; }
         public Player Player { get; }
+        public Grid Grid { get; }
+        public SizeF WindowSize => form.Size;
 
         public void Start() {
             thread.Start();
@@ -42,11 +45,13 @@ namespace Engine {
 
         void Tick() {
             Player.Tick();
+            Grid.Tick();
         }
 
         void Render(Graphics graphics) {
             graphics.Clear(Color.Black);
             Player.Render(graphics);
+            Grid.Render(graphics);
             DebugHelper.RenderCoords(graphics, Player);
         }
 

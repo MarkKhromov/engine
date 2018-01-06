@@ -46,6 +46,7 @@
     <Compile Include="DebugHelper.cs" />
     <Compile Include="FormExtensions.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Grid.cs" />
     <Compile Include="KeyboardManager.cs" />
     <Compile Include="LogicalTimer.cs" />
     <Compile Include="Player.cs" />
