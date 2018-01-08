@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.ObjectModel;
+using System.Drawing;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -8,8 +9,10 @@ namespace Engine {
             this.form = form;
             IsRunning = false;
             KeyboardManager = new KeyboardManager(form);
+            MouseController = new MouseController(form);
             Player = new Player(this);
             Grid = new Grid(this);
+            Bullets = new Collection<Bullet>();
             thread = new Thread(new ThreadStart(() => {
                 PrepareForm();
                 IsRunning = true;
@@ -28,10 +31,13 @@ namespace Engine {
         readonly Thread thread;
 
         public KeyboardManager KeyboardManager { get; }
+        public MouseController MouseController { get; }
 
         public bool IsRunning { get; private set; }
         public Player Player { get; }
         public Grid Grid { get; }
+        // TODO: Refactoring
+        public Collection<Bullet> Bullets { get; }
         public SizeF WindowSize => form.Size;
 
         public void Start() {
@@ -46,12 +52,18 @@ namespace Engine {
         void Tick() {
             Player.Tick();
             Grid.Tick();
+            foreach(var bullet in Bullets) {
+                bullet.Tick();
+            }
         }
 
         void Render(Graphics graphics) {
             graphics.Clear(Color.Black);
             Player.Render(graphics);
             Grid.Render(graphics);
+            foreach(var bullet in Bullets) {
+                bullet.Render(graphics);
+            }
             DebugHelper.RenderCoords(graphics, Player);
         }
 

@@ -43,12 +43,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bullet.cs" />
     <Compile Include="DebugHelper.cs" />
+    <Compile Include="Firearm.cs" />
     <Compile Include="FormExtensions.cs" />
     <Compile Include="Game.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="KeyboardManager.cs" />
     <Compile Include="LogicalTimer.cs" />
+    <Compile Include="MouseController.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
